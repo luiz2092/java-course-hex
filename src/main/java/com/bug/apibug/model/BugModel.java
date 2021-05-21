@@ -1,7 +1,6 @@
 package com.bug.apibug.model;
 
 import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +17,5 @@ public class BugModel {
 
 	private Date createdDate;
 	private Date completionDate;
-	private String description;
-
-	private List<String> attachedFiles;	
-	
+	private String description;	
 }

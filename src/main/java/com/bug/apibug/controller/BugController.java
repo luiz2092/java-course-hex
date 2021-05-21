@@ -3,6 +3,7 @@ package com.bug.apibug.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bug.apibug.model.BugModel;
+import com.bug.apibug.service.BugService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,9 +26,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BugController {
 
+	@Autowired
+	private BugService bugService;
+
 	@PostMapping
 	public ResponseEntity<Void> createBug(@RequestBody BugModel bug) throws JsonProcessingException {
 		log.info(new ObjectMapper().writeValueAsString(bug));
+		bugService.createBug(bug);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
