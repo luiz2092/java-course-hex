@@ -2,6 +2,9 @@ package com.bug.apibug.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +13,8 @@ import lombok.Setter;
 public class BugModel {
 
 	private String email;
+	@NotNull
+	@NotBlank
 	private String owner;
 	private String priority;
 	private String status;
@@ -17,5 +22,5 @@ public class BugModel {
 
 	private Date createdDate;
 	private Date completionDate;
-	private String description;	
+	private String description;
 }

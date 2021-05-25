@@ -1,11 +1,13 @@
 package com.bug.apibug.controller;
 
-import java.util.Arrays;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/bug")
 @Slf4j
@@ -30,7 +33,7 @@ public class BugController {
 	private BugService bugService;
 
 	@PostMapping
-	public ResponseEntity<Void> createBug(@RequestBody BugModel bug) throws JsonProcessingException {
+	public ResponseEntity<Void> createBug(@RequestBody @Valid BugModel bug) throws JsonProcessingException {
 		log.info(new ObjectMapper().writeValueAsString(bug));
 		bugService.createBug(bug);
 		return new ResponseEntity<>(HttpStatus.CREATED);
@@ -38,12 +41,13 @@ public class BugController {
 
 	@GetMapping("/{idBug}")
 	public ResponseEntity<BugModel> getBug(@PathVariable int idBug) {
-		return new ResponseEntity<>(new BugModel(), HttpStatus.CREATED);
+		log.info("---------> " + idBug);
+		return new ResponseEntity<>(bugService.retrieveBug(idBug), HttpStatus.OK);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<BugModel>> getAllBug(@PathVariable int idBug) {
-		return new ResponseEntity<>(Arrays.asList(new BugModel()), HttpStatus.CREATED);
+	@GetMapping("/all")
+	public ResponseEntity<List<BugModel>> getAllBug() {
+		return new ResponseEntity<>(bugService.retrieveAllBugs(), HttpStatus.OK);
 	}
 
 	@PutMapping
