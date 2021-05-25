@@ -1,0 +1,30 @@
+<div>
+    <form class="col-md-6 offset-md-3" [formGroup]="addEmployeeForm" (ngSubmit)="handleForm()">
+
+
+        <div class="form-group">
+            <label>Email address</label>
+            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="email"
+                formControlName="email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                else.</small>
+        </div>
+
+        <div class="form-group">
+            <label>Owner</label>
+            <input type="text" class="form-control" placeholder="owner" formControlName="owner">
+        </div>
+
+        <div class="form-group">
+            <label>Priority</label>
+            <input type="text" class="form-control" placeholder="priority" formControlName="priority">
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <input type="text" class="form-control" placeholder="status" formControlName="status">
+        </div>
+
+        <button type="submit"  class="btn btn-primary">Submit</button>
+    </form>
+</div>
